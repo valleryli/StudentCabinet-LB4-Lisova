@@ -2,7 +2,11 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using CommunityToolkit.Mvvm.Messaging;
+using Microsoft.Maui.Controls;
+using StudentCabinet_LB1.Messages;
 using StudentCabinet_LB1.Models;
+using StudentCabinet_LB1.Views;
 
 namespace StudentCabinet_LB1.ViewModels
 {
@@ -20,7 +24,7 @@ namespace StudentCabinet_LB1.ViewModels
                     _student.FullName = value;
                     OnPropertyChanged();
                     OnPropertyChanged(nameof(Greeting));
-                    ((Command)AddStudentCommand).ChangeCanExecute();
+                    (AddStudentCommand as Command)?.ChangeCanExecute();
                 }
             }
         }
@@ -44,7 +48,7 @@ namespace StudentCabinet_LB1.ViewModels
             get => _student.AverageScore;
             set
             {
-                if (_student.AverageScore != value)
+                if (Math.Abs(_student.AverageScore - value) > 0.0001)
                 {
                     _student.AverageScore = value;
                     OnPropertyChanged();
@@ -53,20 +57,28 @@ namespace StudentCabinet_LB1.ViewModels
             }
         }
 
-        // Форматоване вітання для OneWay-прив'язки
         public string Greeting => $"Студент: {FullName}, група {Group}";
-
-        // Обчислювана властивість для візуальної індикації
         public bool IsHighScore => AverageScore >= 4.0;
 
-        // ==== Частина 2: колекція студентів та команда ====
         public ObservableCollection<Student> Students { get; } = new();
 
         public ICommand AddStudentCommand { get; }
+        public ICommand OpenDetailsCommand { get; }
 
         public StudentViewModel()
         {
             AddStudentCommand = new Command(AddStudent, CanAddStudent);
+            OpenDetailsCommand = new Command<Student>(async student => await OpenDetailsAsync(student));
+
+            WeakReferenceMessenger.Default.Register<StudentUpdatedMessage>(this, (recipient, message) =>
+            {
+                var updated = message.Value;
+                var index = Students.IndexOf(updated);
+                if (index >= 0)
+                {
+                    Students[index] = updated;
+                }
+            });
         }
 
         private void AddStudent()
@@ -77,13 +89,24 @@ namespace StudentCabinet_LB1.ViewModels
                 Group = Group,
                 AverageScore = AverageScore
             });
-
             FullName = string.Empty;
             Group = string.Empty;
             AverageScore = 0;
         }
 
         private bool CanAddStudent() => !string.IsNullOrWhiteSpace(FullName);
+
+        private async Task OpenDetailsAsync(Student? student)
+        {
+            if (student is null) return;
+
+            var parameters = new Dictionary<string, object>
+            {
+                { "SelectedStudent", student }
+            };
+
+            await Shell.Current.GoToAsync(nameof(StudentDetailPage), parameters);
+        }
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
