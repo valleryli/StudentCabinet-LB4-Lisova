@@ -2,18 +2,35 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="StudentCabinet_LB1.Views.StudentDetailPage"
-             Title="Деталі студента">
+             Title="Редагування студента">
 
-    <VerticalStackLayout Padding="24" Spacing="14">
-        <Label Text="Деталі студента" FontSize="22" FontAttributes="Bold" />
+	<ScrollView>
+		<VerticalStackLayout Padding="20" Spacing="16">
 
-        <Label Text="{Binding FullName, StringFormat='ПІБ: {0}'}" />
-        <Label Text="{Binding Group, StringFormat='Група: {0}'}" />
+			<Label Text="Редагування студента" Style="{StaticResource Heading}" />
 
-        <Label Text="Середній бал (можна редагувати):" />
-        <Entry Text="{Binding AverageScore, Mode=TwoWay}" Keyboard="Numeric" />
+			<Border Style="{StaticResource Card}">
+				<VerticalStackLayout Spacing="8">
+					<Label Text="ПІБ" Style="{StaticResource Muted}" />
+					<Entry Text="{Binding FullName, Mode=TwoWay}" />
 
-        <Button Text="Зберегти" Command="{Binding SaveCommand}" Margin="0,10,0,0" />
-        <Button Text="Назад" Command="{Binding GoBackCommand}" BackgroundColor="Gray" />
-    </VerticalStackLayout>
+					<Label Text="Група" Style="{StaticResource Muted}" />
+					<Entry Text="{Binding Group, Mode=TwoWay}" />
+
+					<Label Text="Середній бал" Style="{StaticResource Muted}" />
+					<Entry Text="{Binding AverageScore, Mode=TwoWay}" Keyboard="Numeric" />
+
+					<Label Text="Номер документа (шифрується в БД)" Style="{StaticResource Muted}" />
+					<Entry Text="{Binding PassportNumber, Mode=TwoWay}" />
+
+					<Label Text="{Binding StoredCiphertext, StringFormat='У БД зберігається: {0}'}"
+                           Style="{StaticResource Muted}" LineBreakMode="CharacterWrap" />
+				</VerticalStackLayout>
+			</Border>
+
+			<Button Text="Зберегти" Command="{Binding SaveCommand}" />
+			<Button Text="Назад" Command="{Binding GoBackCommand}" Style="{StaticResource SecondaryButton}" />
+
+		</VerticalStackLayout>
+	</ScrollView>
 </ContentPage>

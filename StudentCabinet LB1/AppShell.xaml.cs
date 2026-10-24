@@ -8,6 +8,7 @@ namespace StudentCabinet_LB1
         {
             InitializeComponent();
             Routing.RegisterRoute(nameof(StudentDetailPage), typeof(StudentDetailPage));
+            Routing.RegisterRoute(nameof(SettingsPage), typeof(SettingsPage));
         }
     }
 }

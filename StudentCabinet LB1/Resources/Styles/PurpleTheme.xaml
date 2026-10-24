@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+	<!-- Світла тема -->
+	<Color x:Key="LBackground">#F6F2FC</Color>
+	<Color x:Key="LSurface">#FFFFFF</Color>
+	<Color x:Key="LPrimary">#8566CC</Color>
+	<Color x:Key="LPrimarySoft">#E9E0F8</Color>
+	<Color x:Key="LText">#3B2F55</Color>
+	<Color x:Key="LMuted">#7D7396</Color>
+	<Color x:Key="LBorder">#DCCFF1</Color>
+
+	<!-- Темна тема -->
+	<Color x:Key="DBackground">#1E1930</Color>
+	<Color x:Key="DSurface">#2A2342</Color>
+	<Color x:Key="DPrimary">#B49CF2</Color>
+	<Color x:Key="DPrimarySoft">#3A3158</Color>
+	<Color x:Key="DText">#EFE9FC</Color>
+	<Color x:Key="DMuted">#A99FC6</Color>
+	<Color x:Key="DBorder">#463C69</Color>
+
+	<Style TargetType="Page" ApplyToDerivedTypes="True">
+		<Setter Property="Padding" Value="0" />
+		<Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource LBackground}, Dark={StaticResource DBackground}}" />
+	</Style>
+
+	<Style TargetType="Shell" ApplyToDerivedTypes="True">
+		<Setter Property="Shell.BackgroundColor" Value="{AppThemeBinding Light={StaticResource LSurface}, Dark={StaticResource DSurface}}" />
+		<Setter Property="Shell.ForegroundColor" Value="{AppThemeBinding Light={StaticResource LPrimary}, Dark={StaticResource DPrimary}}" />
+		<Setter Property="Shell.TitleColor" Value="{AppThemeBinding Light={StaticResource LText}, Dark={StaticResource DText}}" />
+		<Setter Property="Shell.DisabledColor" Value="{AppThemeBinding Light={StaticResource LBorder}, Dark={StaticResource DBorder}}" />
+		<Setter Property="Shell.UnselectedColor" Value="{AppThemeBinding Light={StaticResource LMuted}, Dark={StaticResource DMuted}}" />
+		<Setter Property="Shell.NavBarHasShadow" Value="False" />
+	</Style>
+
+	<!-- Текст -->
+	<Style TargetType="Label">
+		<Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LText}, Dark={StaticResource DText}}" />
+		<Setter Property="BackgroundColor" Value="Transparent" />
+		<Setter Property="FontFamily" Value="OpenSansRegular" />
+		<Setter Property="FontSize" Value="14" />
+	</Style>
+
+	<Style x:Key="Heading" TargetType="Label">
+		<Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LText}, Dark={StaticResource DText}}" />
+		<Setter Property="FontFamily" Value="OpenSansSemibold" />
+		<Setter Property="FontSize" Value="26" />
+	</Style>
+
+	<Style x:Key="SubHeading" TargetType="Label">
+		<Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LPrimary}, Dark={StaticResource DPrimary}}" />
+		<Setter Property="FontFamily" Value="OpenSansSemibold" />
+		<Setter Property="FontSize" Value="18" />
+	</Style>
+
+	<Style x:Key="Muted" TargetType="Label">
+		<Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LMuted}, Dark={StaticResource DMuted}}" />
+		<Setter Property="FontFamily" Value="OpenSansRegular" />
+		<Setter Property="FontSize" Value="12" />
+	</Style>
+
+	<!-- Поля вводу -->
+	<Style TargetType="Entry">
+		<Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LText}, Dark={StaticResource DText}}" />
+		<Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource LSurface}, Dark={StaticResource DSurface}}" />
+		<Setter Property="PlaceholderColor" Value="{AppThemeBinding Light={StaticResource LMuted}, Dark={StaticResource DMuted}}" />
+		<Setter Property="FontFamily" Value="OpenSansRegular" />
+		<Setter Property="FontSize" Value="14" />
+	</Style>
+
+	<!-- Кнопки -->
+	<Style TargetType="Button">
+		<Setter Property="TextColor" Value="{AppThemeBinding Light=#FFFFFF, Dark={StaticResource DBackground}}" />
+		<Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource LPrimary}, Dark={StaticResource DPrimary}}" />
+		<Setter Property="FontFamily" Value="OpenSansSemibold" />
+		<Setter Property="FontSize" Value="14" />
+		<Setter Property="CornerRadius" Value="12" />
+		<Setter Property="Padding" Value="14,10" />
+		<Setter Property="MinimumHeightRequest" Value="44" />
+		<Setter Property="VisualStateManager.VisualStateGroups">
+			<VisualStateGroupList>
+				<VisualStateGroup x:Name="CommonStates">
+					<VisualState x:Name="Normal" />
+					<VisualState x:Name="Disabled">
+						<VisualState.Setters>
+							<Setter Property="TextColor" Value="{AppThemeBinding Light=#FFFFFF, Dark=#6E6488}" />
+							<Setter Property="BackgroundColor" Value="{AppThemeBinding Light=#CFC3EA, Dark=#3A3158}" />
+						</VisualState.Setters>
+					</VisualState>
+				</VisualStateGroup>
+			</VisualStateGroupList>
+		</Setter>
+	</Style>
+
+	<Style x:Key="SecondaryButton" TargetType="Button">
+		<Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LPrimary}, Dark={StaticResource DPrimary}}" />
+		<Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource LPrimarySoft}, Dark={StaticResource DPrimarySoft}}" />
+		<Setter Property="FontFamily" Value="OpenSansSemibold" />
+		<Setter Property="FontSize" Value="14" />
+		<Setter Property="CornerRadius" Value="12" />
+		<Setter Property="Padding" Value="14,10" />
+		<Setter Property="MinimumHeightRequest" Value="44" />
+	</Style>
+
+	<!-- Слайдер і перемикач -->
+	<Style TargetType="Slider">
+		<Setter Property="MinimumTrackColor" Value="{AppThemeBinding Light={StaticResource LPrimary}, Dark={StaticResource DPrimary}}" />
+		<Setter Property="MaximumTrackColor" Value="{AppThemeBinding Light={StaticResource LBorder}, Dark={StaticResource DBorder}}" />
+		<Setter Property="ThumbColor" Value="{AppThemeBinding Light={StaticResource LPrimary}, Dark={StaticResource DPrimary}}" />
+	</Style>
+
+	<Style TargetType="Switch">
+		<Setter Property="OnColor" Value="{AppThemeBinding Light={StaticResource LPrimary}, Dark={StaticResource DPrimary}}" />
+		<Setter Property="ThumbColor" Value="{AppThemeBinding Light=#FFFFFF, Dark=#EFE9FC}" />
+	</Style>
+
+	<!-- Картки -->
+	<Style TargetType="Border">
+		<Setter Property="Stroke" Value="{AppThemeBinding Light={StaticResource LBorder}, Dark={StaticResource DBorder}}" />
+		<Setter Property="StrokeShape" Value="RoundRectangle 18,18,18,18" />
+		<Setter Property="StrokeThickness" Value="1" />
+	</Style>
+
+	<Style x:Key="Card" TargetType="Border">
+		<Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource LSurface}, Dark={StaticResource DSurface}}" />
+		<Setter Property="Stroke" Value="{AppThemeBinding Light={StaticResource LBorder}, Dark={StaticResource DBorder}}" />
+		<Setter Property="StrokeShape" Value="RoundRectangle 18,18,18,18" />
+		<Setter Property="StrokeThickness" Value="1" />
+		<Setter Property="Padding" Value="16" />
+	</Style>
+
+	<Style x:Key="ItemCard" TargetType="Border">
+		<Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource LPrimarySoft}, Dark={StaticResource DPrimarySoft}}" />
+		<Setter Property="Stroke" Value="{AppThemeBinding Light={StaticResource LBorder}, Dark={StaticResource DBorder}}" />
+		<Setter Property="StrokeShape" Value="RoundRectangle 16,16,16,16" />
+		<Setter Property="StrokeThickness" Value="1" />
+		<Setter Property="Padding" Value="12" />
+		<Setter Property="Margin" Value="0,0,0,8" />
+	</Style>
+</ResourceDictionary>

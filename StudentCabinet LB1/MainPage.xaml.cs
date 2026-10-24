@@ -4,10 +4,26 @@ namespace StudentCabinet_LB1
 {
     public partial class MainPage : ContentPage
     {
-        public MainPage()
+        private readonly StudentViewModel _viewModel;
+
+        // ViewModel підставляє DI-контейнер
+        public MainPage(StudentViewModel viewModel)
         {
             InitializeComponent();
-            BindingContext = new StudentViewModel();
+            _viewModel = viewModel;
+            BindingContext = viewModel;
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            _viewModel.LoadCommand.Execute(null);   // завантаження даних через ViewModel
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            _viewModel.OnPageDisappearing();        // логування переходу
         }
     }
 }
